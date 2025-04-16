@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truth or Dare Spinning Bottle</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      width: 90%;
+    }
+    
+    h1 {
+      margin-top: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .game-area {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 20px auto;
+    }
+    
+    .players-circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+    }
+    
+    .player {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #6e8efb;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    
+    .player:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .bottle-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .bottle {
+      width: 120px;
+      height: 25px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+      border-radius: 5px 15px 15px 5px;
+      transform-origin: center;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    
+    .bottle::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 15px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+      top: 5px;
+      left: -10px;
+      border-radius: 15px 5px 5px 15px;
+    }
+    
+    .controls {
+      margin-top: 20px;
+    }
+    
+    button {
+      background: linear-gradient(90deg, #a777e3, #6e8efb);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 0 10px;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .name-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+    
+    .name-input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    
+    .result-display {
+      font-size: 24px;
+      font-weight: bold;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .indicator {
+      position: absolute;
+      top: 47%;
+      left: 70%;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 20px solid rgba(255, 255, 255, 0.9);
+      transform: translate(-50%, -50%);
+    }
+    
+    .speed-info {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Truth or Dare Spinning Bottle</h1>
+    <div class="name-inputs">
+      <input type="text" class="name-input" id="player1" placeholder="Player 1 Name">
+      <input type="text" class="name-input" id="player2" placeholder="Player 2 Name">
+      <input type="text" class="name-input" id="player3" placeholder="Player 3 Name">
+      <input type="text" class="name-input" id="player4" placeholder="Player 4 Name">
+      <input type="text" class="name-input" id="player5" placeholder="Player 5 Name">
+      <input type="text" class="name-input" id="player6" placeholder="Player 6 Name">
+    </div>
+    
+    <button id="startGame">Start Game</button>
+    
+    <div class="game-area" style="display: none;">
+      <div class="players-circle"></div>
+      <div class="bottle-container">
+        <div class="bottle">
+          <div class="indicator"></div>
+        </div>
+      </div>
+      <div class="result-display"></div>
+    </div>
+    
+    <div class="controls" style="display: none;">
+      <button id="spinButton">Spin Bottle</button>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      const startGameButton = document.getElementById('startGame');
+      const gameArea = document.querySelector('.game-area');
+      const controls = document.querySelector('.controls');
+      const nameInputs = document.querySelector('.name-inputs');
+      const playersCircle = document.querySelector('.players-circle');
+      const bottle = document.querySelector('.bottle');
+      const spinButton = document.getElementById('spinButton');
+      const resultDisplay = document.querySelector('.result-display');
+      
+      let currentAngle = 0;
+      let isSpinning = false;
+      let players = [];
+      let currentPlayer = null;
+      let targetPlayer = null;
+      
+      const METERS_PER_MINUTE = 170;
+      
+      const BOTTLE_LENGTH_METERS = 0.12;
+      const ROTATIONS_PER_MINUTE = METERS_PER_MINUTE / (2 * Math.PI * (BOTTLE_LENGTH_METERS/2));
+      const DEGREES_PER_MINUTE = ROTATIONS_PER_MINUTE * 360;
+      const DEGREES_PER_SECOND = DEGREES_PER_MINUTE / 60;
+      
+      let bottleAnimationId = null;
+      let startTime = null;
+      let targetAngle = 0;
+      
+      startGameButton.addEventListener('click', function() {
+
+        players = [];
+        for (let i = 1; i <= 6; i++) {
+          const name = document.getElementById(`player${i}`).value.trim() || `Player ${i}`;
+          players.push(name);
+        }
+        
+        nameInputs.style.display = 'none';
+        startGameButton.style.display = 'none';
+        gameArea.style.display = 'block';
+        controls.style.display = 'flex';
+        
+        playersCircle.innerHTML = '';
+        players.forEach((name, index) => {
+          const angle = (index * 60) * (Math.PI / 180);
+          const x = 250 + Math.cos(angle) * 200;
+          const y = 250 + Math.sin(angle) * 200;
+          
+          const playerEl = document.createElement('div');
+          playerEl.className = 'player';
+          playerEl.textContent = name;
+          playerEl.style.left = `${x}px`;
+          playerEl.style.top = `${y}px`;
+          
+          playersCircle.appendChild(playerEl);
+        });
+        
+        currentPlayer = 0;
+        resultDisplay.textContent = `${players[currentPlayer]}'s turn to spin!`;
+      });
+      
+      function animateBottle(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsedSeconds = (timestamp - startTime) / 1000;
+        
+        const currentDegrees = currentAngle + (DEGREES_PER_SECOND * elapsedSeconds);
+        bottle.style.transform = `rotate(${currentDegrees}deg)`;
+
+        if (currentDegrees < targetAngle) {
+          bottleAnimationId = requestAnimationFrame(animateBottle);
+        } else {
+
+          currentAngle = targetAngle % 360;
+          bottle.style.transform = `rotate(${currentAngle}deg)`;
+          spinComplete();
+        }
+      }
+      
+      function spinComplete() {
+        isSpinning = false;
+
+        const normalizedAngle = (currentAngle + 90) % 360; 
+        const playerIndex = Math.floor(normalizedAngle / 60) % 6;
+
+        targetPlayer = playerIndex;
+        
+        resultDisplay.textContent = `${players[currentPlayer]}'s bottle points to ${players[targetPlayer]}!`;
+
+        setTimeout(() => {
+          currentPlayer = targetPlayer;
+          resultDisplay.textContent = `${players[currentPlayer]}'s turn to spin!`;
+        }, 2000);
+      }
+
+      spinButton.addEventListener('click', function() {
+        if (isSpinning) return;
+        
+        isSpinning = true;
+        resultDisplay.textContent = '';
+
+        startTime = null;
+
+        const minRotations = 3;
+        const maxRotations = 8;
+        const additionalRotations = minRotations + Math.random() * (maxRotations - minRotations);
+        const additionalDegrees = additionalRotations * 360;
+
+        targetAngle = currentAngle + additionalDegrees;
+
+        cancelAnimationFrame(bottleAnimationId);
+        bottleAnimationId = requestAnimationFrame(animateBottle);
+      });
+    });
+  </script>
+</body>
+</html>
