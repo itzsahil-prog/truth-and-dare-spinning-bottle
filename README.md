@@ -1,8 +1,3 @@
-# truth-and-dare-spinning-bottle
-It seems you want assistance in creating a `README.md` file for your repository: **truth-and-dare-spinning-bottle**. Below is a general template for your `README.md` file tailored to your repository's name and purpose. You can expand or customize it further.
-
----
-
 # Truth and Dare: Spinning Bottle
 
 A fun and interactive web application that brings the classic **Truth and Dare** game to life with a spinning bottle! Perfect for parties, gatherings, or just casual fun with friends.
@@ -18,6 +13,34 @@ A fun and interactive web application that brings the classic **Truth and Dare**
 
 Check out the live version of the game: [Demo Link](#)  
 *(Add your live demo link here if hosted on GitHub Pages or any other platform.)*
+
+## Technical Information
+
+### Technology Stack
+- **HTML**: Structure and layout of the application.
+- **CSS (Optional - not mentioned in repo)**: Styling for the visual elements (if applicable).
+- **JavaScript (Optional - not mentioned in repo)**: Logic for spinning bottle animation and random selection (if applicable).
+
+### File Structure
+- `index.html`: The main HTML file that serves as the entry point of the application. Includes the spinning bottle logic and game flow.
+- *(Add more files if applicable, e.g., `style.css` or `script.js`.)*
+
+### Key Functionalities
+1. **Spin Bottle Animation**:
+   - Uses CSS and/or JavaScript to animate the bottle's spinning.
+   - Randomly determines where the bottle stops.
+2. **Player Selection**:
+   - Logic implemented to identify the player the bottle points to.
+3. **Game Options**:
+   - Displays prompts for truth and dare (if implemented).
+
+### Deployment
+- The application can be deployed using **GitHub Pages** or any other static hosting platform.
+- To deploy using GitHub Pages:
+  1. Go to the repository settings.
+  2. Navigate to the "Pages" section.
+  3. Select the branch (e.g., `main`) and the folder (`/root`) for deployment.
+  4. Save and access the live link.
 
 ## Installation
 
